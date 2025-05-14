@@ -1,3 +1,9 @@
+<!--
+SPDX-FileCopyrightText: 2025 Intevation GmbH
+
+SPDX-License-Identifier: Apache-2.0
+-->
+
 # ISDuBA Python Client
 A client library for accessing ISDuBA API
 
