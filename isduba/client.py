@@ -2,6 +2,8 @@
 #
 # SPDX-License-Identifier: Apache-2.0
 
+# initially generated with https://github.com/openapi-generators/openapi-python-client and modified
+
 import ssl
 from typing import Any, Optional, Union
 
