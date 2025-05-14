@@ -2,7 +2,7 @@
 A client library for accessing ISDuBA API
 
 ## Usage
-First, create a client:
+First, create a client instance:
 
 ```python
 from isduba import Client

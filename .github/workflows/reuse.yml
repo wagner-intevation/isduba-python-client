@@ -1,0 +1,22 @@
+#SPDX-FileCopyrightText: 2025 Intevation GmbH
+#SPDX-License-Identifier: Apache-2.0
+
+name: "Reuse license lint"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  reuse:
+    name: Check license compliance with reuse
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: REUSE compliance check
+      uses: fsfe/reuse-action@v5
