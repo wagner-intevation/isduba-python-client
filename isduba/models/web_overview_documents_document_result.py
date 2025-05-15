@@ -65,7 +65,6 @@ class WebOverviewDocumentsDocumentResult:
         documents = []
         _documents = d.pop("documents", UNSET)
         for documents_item_data in _documents or []:
-            print("isduba.models.web_overview_documents_document_result", documents_item_data)
             documents_item = WebOverviewDocumentsDocumentResultDocumentsItem.from_dict(documents_item_data)
 
             documents.append(documents_item)

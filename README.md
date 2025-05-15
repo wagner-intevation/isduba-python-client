@@ -46,6 +46,17 @@ about: WebAboutInfo = await get_about.asyncio(client=client)
 response: Response[WebAboutInfo] = await get_about.asyncio_detailed(client=client)
 ```
 
+### Get documents
+```python
+from isduba.api.default import get_documents
+
+data = get_documents.sync(client=client, advisories=True, count=1, orders='-critical', limit=10, offset=0)
+# search for a string, e.g. a product
+get_documents.sync(client=client, query='"csaf" search _clientSearch as')
+```
+
+### Usage Logic
+
 Things to know:
 1. Every path/method combo becomes a Python module with four functions:
     1. `sync`: Blocking request that returns parsed data (if successful) or `None`
