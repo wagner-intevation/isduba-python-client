@@ -1,3 +1,9 @@
+# SPDX-FileCopyrightText: 2025 Intevation GmbH
+#
+# SPDX-License-Identifier: Apache-2.0
+
+# generated with https://github.com/openapi-generators/openapi-python-client
+
 from collections.abc import Mapping
 from typing import Any, TypeVar, Union
 
