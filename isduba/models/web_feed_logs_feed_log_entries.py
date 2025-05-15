@@ -13,7 +13,7 @@ from attrs import field as _attrs_field
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.web_feed_logs_entry import WebFeedLogsEntry
+    from ..models.sources_feed_log_info import SourcesFeedLogInfo
 
 
 T = TypeVar("T", bound="WebFeedLogsFeedLogEntries")
@@ -24,11 +24,11 @@ class WebFeedLogsFeedLogEntries:
     """
     Attributes:
         count (Union[Unset, int]):
-        entries (Union[Unset, list['WebFeedLogsEntry']]):
+        entries (Union[Unset, list['SourcesFeedLogInfo']]):
     """
 
     count: Union[Unset, int] = UNSET
-    entries: Union[Unset, list["WebFeedLogsEntry"]] = UNSET
+    entries: Union[Unset, list["SourcesFeedLogInfo"]] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -53,7 +53,7 @@ class WebFeedLogsFeedLogEntries:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.web_feed_logs_entry import WebFeedLogsEntry
+        from ..models.sources_feed_log_info import SourcesFeedLogInfo
 
         d = dict(src_dict)
         count = d.pop("count", UNSET)
@@ -61,7 +61,7 @@ class WebFeedLogsFeedLogEntries:
         entries = []
         _entries = d.pop("entries", UNSET)
         for entries_item_data in _entries or []:
-            entries_item = WebFeedLogsEntry.from_dict(entries_item_data)
+            entries_item = SourcesFeedLogInfo.from_dict(entries_item_data)
 
             entries.append(entries_item)
 
