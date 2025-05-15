@@ -24,7 +24,7 @@ def _get_kwargs() -> dict[str, Any]:
     return _kwargs
 
 
-def _parse_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Optional[ConfigClient]:
+def _parse_response(*, client: Client, response: httpx.Response) -> Optional[ConfigClient]:
     if response.status_code == 200:
         response_200 = ConfigClient.from_dict(response.json())
 
@@ -35,7 +35,7 @@ def _parse_response(*, client: Union[AuthenticatedClient, Client], response: htt
         return None
 
 
-def _build_response(*, client: Union[AuthenticatedClient, Client], response: httpx.Response) -> Response[ConfigClient]:
+def _build_response(*, client: Client, response: httpx.Response) -> Response[ConfigClient]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -46,7 +46,7 @@ def _build_response(*, client: Union[AuthenticatedClient, Client], response: htt
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Response[ConfigClient]:
     """Returns client configuration.
 
@@ -71,7 +71,7 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Optional[ConfigClient]:
     """Returns client configuration.
 
@@ -92,7 +92,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Response[ConfigClient]:
     """Returns client configuration.
 
@@ -115,7 +115,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Optional[ConfigClient]:
     """Returns client configuration.
 

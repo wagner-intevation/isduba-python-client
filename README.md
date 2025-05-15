@@ -16,7 +16,63 @@ from isduba import Client
 client = Client(base_url="https://isduba.example.com")
 ```
 
-The, login with your credentials:
+Then, login with your credentials:
 ```python
 client.login(username='ada', password='bob')
+```
+
+Now call your endpoint and use your models:
+
+```python
+from isduba.models import WebAboutInfo  # optional, for typing annotations
+from isduba.api.default import get_about
+from isduba.types import Response
+
+about: WebAboutInfo = get_about.sync(client=client)
+# access the response's value as attributes:
+about.version
+# or if you need more info (e.g. status_code)
+response: Response[WebAboutInfo] = get_about.sync_detailed(client=client)
+```
+
+Or do the same thing with an async version:
+
+```python
+from isduba.models import WebAboutInfo
+from isduba.api.default import get_about
+from isduba.types import Response
+
+about: WebAboutInfo = await get_about.asyncio(client=client)
+response: Response[WebAboutInfo] = await get_about.asyncio_detailed(client=client)
+```
+
+Things to know:
+1. Every path/method combo becomes a Python module with four functions:
+    1. `sync`: Blocking request that returns parsed data (if successful) or `None`
+    1. `sync_detailed`: Blocking request that always returns a `Request`, optionally with `parsed` set if the request was successful.
+    1. `asyncio`: Like `sync` but async instead of blocking
+    1. `asyncio_detailed`: Like `sync_detailed` but async instead of blocking
+
+1. All path/query params, and bodies become method arguments.
+1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
+1. Any endpoint which did not have a tag will be in `isduba.api.default`
+
+## Advanced customizations
+
+There are more settings on the generated `Client` class which let you control more runtime behavior, check out the docstring on that class for more info. You can also customize the underlying `httpx.Client` or `httpx.AsyncClient` (depending on your use-case):
+
+```python
+from isduba import Client
+
+def log_request(request):
+    print(f"Request event hook: {request.method} {request.url} - Waiting for response")
+
+def log_response(response):
+    request = response.request
+    print(f"Response event hook: {request.method} {request.url} - Status {response.status_code}")
+
+client = Client(
+    base_url="https://isduba.example.com",
+    httpx_args={"event_hooks": {"request": [log_request], "response": [log_response]}},
+)
 ```

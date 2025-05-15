@@ -26,7 +26,7 @@ def _get_kwargs() -> dict[str, Any]:
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+    *, client: Client, response: httpx.Response
 ) -> Optional[Union[Any, ModelsError, ModelsSuccess]]:
     if response.status_code == 200:
         response_200 = ModelsSuccess.from_dict(response.json())
@@ -50,7 +50,7 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+    *, client: Client, response: httpx.Response
 ) -> Response[Union[Any, ModelsError, ModelsSuccess]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -62,7 +62,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Response[Union[Any, ModelsError, ModelsSuccess]]:
     """Returns query exclusions.
 
@@ -87,7 +87,7 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Optional[Union[Any, ModelsError, ModelsSuccess]]:
     """Returns query exclusions.
 
@@ -108,7 +108,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Response[Union[Any, ModelsError, ModelsSuccess]]:
     """Returns query exclusions.
 
@@ -131,7 +131,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
 ) -> Optional[Union[Any, ModelsError, ModelsSuccess]]:
     """Returns query exclusions.
 

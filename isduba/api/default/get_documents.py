@@ -54,7 +54,7 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+    *, client: Client, response: httpx.Response
 ) -> Optional[Union[Any, ModelsError, WebOverviewDocumentsDocumentResult]]:
     if response.status_code == 200:
         response_200 = WebOverviewDocumentsDocumentResult.from_dict(response.json())
@@ -78,7 +78,7 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
+    *, client: Client, response: httpx.Response
 ) -> Response[Union[Any, ModelsError, WebOverviewDocumentsDocumentResult]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
@@ -90,7 +90,7 @@ def _build_response(
 
 def sync_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
     advisories: Union[Unset, bool] = UNSET,
     query: Union[Unset, str] = UNSET,
     columns: Union[Unset, str] = UNSET,
@@ -139,7 +139,7 @@ def sync_detailed(
 
 def sync(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
     advisories: Union[Unset, bool] = UNSET,
     query: Union[Unset, str] = UNSET,
     columns: Union[Unset, str] = UNSET,
@@ -183,7 +183,7 @@ def sync(
 
 async def asyncio_detailed(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
     advisories: Union[Unset, bool] = UNSET,
     query: Union[Unset, str] = UNSET,
     columns: Union[Unset, str] = UNSET,
@@ -230,7 +230,7 @@ async def asyncio_detailed(
 
 async def asyncio(
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: Client,
     advisories: Union[Unset, bool] = UNSET,
     query: Union[Unset, str] = UNSET,
     columns: Union[Unset, str] = UNSET,
