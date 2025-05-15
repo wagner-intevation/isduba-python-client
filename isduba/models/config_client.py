@@ -10,7 +10,6 @@ from typing import Any, TypeVar, Union
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.time_duration import TimeDuration
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ConfigClient")
@@ -20,24 +19,22 @@ T = TypeVar("T", bound="ConfigClient")
 class ConfigClient:
     """
     Attributes:
-        idle_timeout (Union[Unset, TimeDuration]):
+        idle_timeout (Union[Unset, int]):
         keycloak_client_id (Union[Unset, str]):
         keycloak_realm (Union[Unset, str]):
         keycloak_url (Union[Unset, str]):
-        update_interval (Union[Unset, TimeDuration]):
+        update_interval (Union[Unset, int]):
     """
 
-    idle_timeout: Union[Unset, TimeDuration] = UNSET
+    idle_timeout: Union[Unset, int] = UNSET
     keycloak_client_id: Union[Unset, str] = UNSET
     keycloak_realm: Union[Unset, str] = UNSET
     keycloak_url: Union[Unset, str] = UNSET
-    update_interval: Union[Unset, TimeDuration] = UNSET
+    update_interval: Union[Unset, int] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        idle_timeout: Union[Unset, int] = UNSET
-        if not isinstance(self.idle_timeout, Unset):
-            idle_timeout = self.idle_timeout.value
+        idle_timeout = self.idle_timeout
 
         keycloak_client_id = self.keycloak_client_id
 
@@ -45,9 +42,7 @@ class ConfigClient:
 
         keycloak_url = self.keycloak_url
 
-        update_interval: Union[Unset, int] = UNSET
-        if not isinstance(self.update_interval, Unset):
-            update_interval = self.update_interval.value
+        update_interval = self.update_interval
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -68,12 +63,7 @@ class ConfigClient:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        _idle_timeout = d.pop("idle_timeout", UNSET)
-        idle_timeout: Union[Unset, TimeDuration]
-        if isinstance(_idle_timeout, Unset):
-            idle_timeout = UNSET
-        else:
-            idle_timeout = TimeDuration(_idle_timeout)
+        idle_timeout = d.pop("idle_timeout", UNSET)
 
         keycloak_client_id = d.pop("keycloak_client_id", UNSET)
 
@@ -81,12 +71,7 @@ class ConfigClient:
 
         keycloak_url = d.pop("keycloak_url", UNSET)
 
-        _update_interval = d.pop("update_interval", UNSET)
-        update_interval: Union[Unset, TimeDuration]
-        if isinstance(_update_interval, Unset):
-            update_interval = UNSET
-        else:
-            update_interval = TimeDuration(_update_interval)
+        update_interval = d.pop("update_interval", UNSET)
 
         config_client = cls(
             idle_timeout=idle_timeout,

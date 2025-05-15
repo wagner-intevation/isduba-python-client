@@ -5,7 +5,7 @@
 # generated with https://github.com/openapi-generators/openapi-python-client
 
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any, Optional
 
 import httpx
 
