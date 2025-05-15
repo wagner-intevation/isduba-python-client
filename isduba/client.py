@@ -42,7 +42,7 @@ class Client:
             argument to the constructor.
     """
 
-    _base_url: str = field(alias="base_url", converter=lambda url: url.rstrip('/'))
+    _base_url: str = field(alias="base_url", converter=lambda url: url.rstrip('/') + '/api')
     raise_on_unexpected_status: bool = field(default=False, kw_only=True)
     token: Optional[str] = field(default=None)
     _headers: dict[str, str] = field(factory=dict, kw_only=True, alias="headers")
@@ -55,13 +55,16 @@ class Client:
     _async_client: Optional[httpx.AsyncClient] = field(default=None, init=False)
 
     def login(self, username: str, password: str):
-        with self.get_httpx_client() as client:
-            response = client.get(f'{self._base_url}/api/client-config')
-            response.raise_for_status()
-            auth_url = f'{response.json()["keycloak_url"]}/realms/{response.json()["keycloak_realm"]}/protocol/openid-connect/token'
-            response = client.post(auth_url, data={'client_id': 'auth', 'username': username, 'password': 'Aingee6i', 'grant_type': 'password'})
-            response.raise_for_status()
-            self.token = response.json()['access_token']
+        client = self.get_httpx_client()
+        # can't use isduba.api.default.get_client_config here (circular import)
+        response = client.get(f'{self._base_url}/client-config')
+        response.raise_for_status()
+        auth_url = f'{response.json()["keycloak_url"]}/realms/{response.json()["keycloak_realm"]}/protocol/openid-connect/token'
+        response = client.post(auth_url, data={'client_id': 'auth', 'username': username, 'password': 'Aingee6i', 'grant_type': 'password'})
+        response.raise_for_status()
+        self.token = response.json()['access_token']
+        # update the Authorization header in the existing client
+        self._client.headers.update({'Authorization': f'Bearer {self.token}'})
         return True
 
     def get_httpx_client(self) -> httpx.Client:
@@ -70,7 +73,7 @@ class Client:
             self._client = httpx.Client(
                 base_url=self._base_url,
                 cookies=self._cookies,
-                headers=self._headers,
+                headers=self._headers | {'Authorization': f'Bearer {self.token}'},
                 timeout=self._timeout,
                 verify=self._verify_ssl,
                 follow_redirects=self._follow_redirects,
@@ -93,7 +96,7 @@ class Client:
             self._async_client = httpx.AsyncClient(
                 base_url=self._base_url,
                 cookies=self._cookies,
-                headers=self._headers,
+                headers=self._headers | {'Authorization': f'Bearer {self.token}'},
                 timeout=self._timeout,
                 verify=self._verify_ssl,
                 follow_redirects=self._follow_redirects,
