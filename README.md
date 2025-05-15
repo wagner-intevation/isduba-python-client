@@ -51,8 +51,10 @@ response: Response[WebAboutInfo] = await get_about.asyncio_detailed(client=clien
 from isduba.api.default import get_documents
 
 data = get_documents.sync(client=client, advisories=True, count=1, orders='-critical', limit=10, offset=0)
-# search for a string, e.g. a product
+# search for a string
 get_documents.sync(client=client, query='"csaf" search _clientSearch as')
+# search for a product. Query syntax: https://github.com/ISDuBA/ISDuBA/blob/main/docs/filter_expr.md
+data = get_documents.sync(client=client, query='"putty" ilikepname', limit=2)
 ```
 
 ### Usage Logic
