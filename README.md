@@ -24,26 +24,22 @@ client.login(username='ada', password='bob')
 Now call your endpoint and use your models:
 
 ```python
-from isduba.models import WebAboutInfo  # optional, for typing annotations
 from isduba.api.default import get_about
-from isduba.types import Response
 
-about: WebAboutInfo = get_about.sync(client=client)
+about = get_about.sync(client=client)
 # access the response's value as attributes:
 about.version
 # or if you need more info (e.g. status_code)
-response: Response[WebAboutInfo] = get_about.sync_detailed(client=client)
+response = get_about.sync_detailed(client=client)
 ```
 
 Or do the same thing with an async version:
 
 ```python
-from isduba.models import WebAboutInfo
 from isduba.api.default import get_about
-from isduba.types import Response
 
-about: WebAboutInfo = await get_about.asyncio(client=client)
-response: Response[WebAboutInfo] = await get_about.asyncio_detailed(client=client)
+about = await get_about.asyncio(client=client)
+response = await get_about.asyncio_detailed(client=client)
 ```
 
 ### Get documents
@@ -69,6 +65,22 @@ Things to know:
 1. All path/query params, and bodies become method arguments.
 1. If your endpoint had any tags on it, the first tag will be used as a module name for the function (my_tag above)
 1. Any endpoint which did not have a tag will be in `isduba.api.default`
+
+## Typing
+
+All responses are objects, you can add typing information with the models:
+
+```python
+from isduba.models import WebAboutInfo
+from isduba.api.default import get_about
+from isduba.types import Response
+
+about: WebAboutInfo = get_about.sync(client=client)
+# access the response's value as attributes:
+about.version
+# or if you need more info (e.g. status_code)
+response: Response[WebAboutInfo] = get_about.sync_detailed(client=client)
+```
 
 ## Advanced customizations
 
