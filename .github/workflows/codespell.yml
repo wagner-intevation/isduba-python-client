@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2025 Intevation GmbH
+#
+# SPDX-License-Identifier: Apache-2.0
+
+name: "Codespell spelling check"
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  codespell:
+    name: Find and notify about common misspellings
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+    - name: Install codespell
+      run: pip install "codespell"
+    - name: Run codespell
+      run: /home/runner/.local/bin/codespell

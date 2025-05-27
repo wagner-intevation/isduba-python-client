@@ -1,0 +1,27 @@
+# SPDX-FileCopyrightText: 2025 Intevation GmbH
+#
+# SPDX-License-Identifier: Apache-2.0
+
+__pycache__/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# JetBrains
+.idea/
+
+/coverage.xml
+/.coverage
