@@ -61,7 +61,7 @@ class Client:
         response.raise_for_status()
         auth_url = f"{response.json()['keycloak_url']}/realms/{response.json()['keycloak_realm']}/protocol/openid-connect/token"
         response = client.post(
-            auth_url, data={"client_id": "auth", "username": username, "password": "Aingee6i", "grant_type": "password"}
+            auth_url, data={"client_id": "auth", "username": username, "password": password, "grant_type": "password"}
         )
         response.raise_for_status()
         self.token = response.json()["access_token"]
